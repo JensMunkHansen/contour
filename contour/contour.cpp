@@ -15,6 +15,7 @@
 // Mike Alder: Radial Sweep
 // Theo Pavlidid' Algorithm
 
+#include <contour/config.h>
 #include <contour/conrec.h>
 #include <cmath>
 #include <cstddef>
@@ -27,7 +28,7 @@
 
 #include <algorithm>
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) && defined(SPS_DEBUG)
 # if !defined(__CYGWIN__)
 #  include <sps/strace.hpp>
 # endif
@@ -38,7 +39,7 @@ void ContourInit();
 
 void ContourInit() {
 #if defined(__GNUC__) && !defined(__CYGWIN__)
-# if !defined(NDEBUG)
+# if !defined(NDEBUG) && defined(SPS_DEBUG)
   sps::STrace::Instance().Enable();
 # endif
 #endif

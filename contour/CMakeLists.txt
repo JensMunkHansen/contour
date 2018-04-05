@@ -9,6 +9,8 @@ if (UNIX)
   set(CMAKE_CXX_FLAGS "-std=c++11 -std=c++14 -pedantic -Wall ${CMAKE_CXX_FLAGS} -std=c++14")
 endif()
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
+
 set(contour_SOURCES
   contour.cpp
 )
@@ -16,7 +18,7 @@ set(contour_SOURCES
 set(contour_HEADERS
 )
 
-if (UNIX AND NOT WIN32 AND NOT CYGWIN)
+if (UNIX AND NOT WIN32 AND NOT CYGWIN AND SPS_DEBUG)
   set(contour_HEADERS "${contour_HEADERS}" "../sps/strace.hpp")
   set(contour_SOURCES "${contour_SOURCES}" "../sps/strace.cpp")
 endif()

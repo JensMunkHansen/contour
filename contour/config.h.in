@@ -1,0 +1,10 @@
+/**
+ * @file   <contour/config.h>
+ * @author Jens Munk Hansen <jens.munk.hansen@gmai.com>
+ * @date   Tue Apr 29 19:46:27 2014
+ *
+ * @brief  Auto-generated configuration file
+ *
+ *
+ */
+#cmakedefine SPS_DEBUG @SPS_DEBUG@
