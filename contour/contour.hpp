@@ -9,7 +9,12 @@
  */
 
 #pragma once
-#include <contour/contour_export.h>
+
+#ifdef USE_CMAKE
+# include <contour/contour_export.h>
+#else
+# define CONTOUR_EXPORT
+#endif
 
 CONTOUR_EXPORT int contours_sorted(
   const double* pData,

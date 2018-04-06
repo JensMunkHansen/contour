@@ -3,6 +3,8 @@ set(conrec_SOURCES
   conrec.c
 )
 
+add_definitions(-DUSE_CMAKE)
+
 add_library(conrec ${LIB_TYPE} ${conrec_SOURCES})
 
 if (UNIX)

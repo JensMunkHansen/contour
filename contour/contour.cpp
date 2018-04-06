@@ -8,14 +8,15 @@
  * Copyright 2018 Jens Munk Hansen
  */
 
-// TODO(JEM): Compare whole segments rather than points, i.e.
-
 // Investigate Square Tracing Algorithm
 // Moore-Neighbor Tracing
 // Mike Alder: Radial Sweep
 // Theo Pavlidid' Algorithm
 
-#include <contour/config.h>
+#ifdef USE_CMAKE
+# include <contour/config.h>
+#endif
+
 #include <contour/conrec.h>
 #include <cmath>
 #include <cstddef>
