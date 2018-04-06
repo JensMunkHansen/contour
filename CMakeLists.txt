@@ -17,8 +17,8 @@ endif()
 
 # set up include-directories
 include_directories(
-  "${PROJECT_SOURCE_DIR}"   # to find fnm/fnm_types.hpp
   "${PROJECT_BINARY_DIR}"   # to find fnm/config.h
+  "${PROJECT_SOURCE_DIR}"   # to find fnm/fnm_types.hpp
   )
 
 # Add sub-directories
