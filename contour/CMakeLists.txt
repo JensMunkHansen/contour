@@ -6,7 +6,7 @@ set(conrec_SOURCES
 add_library(conrec ${LIB_TYPE} ${conrec_SOURCES})
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "-std=c++11 -std=c++14 -pedantic -Wall ${CMAKE_CXX_FLAGS} -std=c++14")
+  set(CMAKE_CXX_FLAGS "-std=c++11 -std=c++14 -pedantic -Wall ${CMAKE_CXX_FLAGS}")
 endif()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
@@ -30,10 +30,6 @@ generate_export_header(contour)
 target_link_libraries(contour conrec)
 
 find_package(SWIG REQUIRED)
-
-if (UNIX AND NOT CYGWIN)
-  set(SWIG_EXECUTABLE swig3.0)
-endif()
 
 include(${SWIG_USE_FILE})
 
