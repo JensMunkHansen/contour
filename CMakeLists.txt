@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 project(contour C CXX)
 
 # JEM: Allow the developer to select if Dynamic or Static libraries are built
-option (BUILD_SHARED_LIBS "Build Shared Libraries" ON)
+option (BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
 set(LIB_TYPE STATIC)
 if (BUILD_SHARED_LIBS)
   set(LIB_TYPE SHARED)
