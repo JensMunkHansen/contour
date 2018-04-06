@@ -40,6 +40,12 @@ include(${SWIG_USE_FILE})
 find_package(PythonInterp 2.7 REQUIRED)
 find_package(PythonLibs 2.7 REQUIRED)
 
+if (MSVC)
+  set(CMAKE_SWIG_FLAGS "-D_SWIG_WIN32")
+  add_definitions(-DSWIG_PYTHON_INTERPRETER_NO_DEBUG)
+  string(REPLACE "_d" "" PYTHON_LIBRARIES "${PYTHON_LIBRARIES}")
+endif()
+
 include_directories(${PYTHON_INCLUDE_PATH})
 
 set(swig_contour_HEADERS
