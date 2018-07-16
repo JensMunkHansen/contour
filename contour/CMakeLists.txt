@@ -38,9 +38,12 @@ include(${SWIG_USE_FILE})
 find_package(PythonInterp 2.7 REQUIRED)
 find_package(PythonLibs 2.7 REQUIRED)
 
+# HAVE_ROUND
+
 if (MSVC)
   set(CMAKE_SWIG_FLAGS "-D_SWIG_WIN32")
   add_definitions(-DSWIG_PYTHON_INTERPRETER_NO_DEBUG)
+  add_definitions(-DHAVE_ROUND)
   string(REPLACE "_d" "" PYTHON_LIBRARIES "${PYTHON_LIBRARIES}")
 endif()
 
@@ -59,7 +62,10 @@ else()
 endif()
 
 if (MSVC)
-  set_source_files_properties( ${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "/wd4701 /wd4127 /wd4456 /Od")
+  # 4459: declaration of swig_this hides global declaration,
+  #       e.g. static PyObject* swig_this = NULL;
+  #       void SomeFunction(PyObject* swig_this);
+  set_source_files_properties( ${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "/wd4459 /wd4701 /wd4127 /wd4456 /Od")
 endif()
 
 swig_link_libraries(swig_contour contour conrec ${PYTHON_LIBRARIES})
