@@ -52,6 +52,14 @@ set(swig_contour_HEADERS
 
 set_source_files_properties(swig_contour.i PROPERTIES CPLUSPLUS ON)
 
-swig_add_module(swig_contour python swig_contour.i ${swig_contour_HEADERS})
+if(${CMAKE_VERSION} VERSION_LESS "3.8.0")
+  swig_add_module(swig_contour python swig_contour.i ${swig_contour_HEADERS})
+else()
+  swig_add_library(swig_contour LANGUAGE python SOURCES swig_contour.i ${swig_contour_HEADERS})
+endif()
+
+if (MSVC)
+  set_source_files_properties( ${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "/wd4701 /wd4127 /wd4456 /Od")
+endif()
 
 swig_link_libraries(swig_contour contour conrec ${PYTHON_LIBRARIES})
