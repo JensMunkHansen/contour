@@ -72,6 +72,13 @@ inline bool operator<(const line2_t<double>& p1, const line2_t<double>& p2);
 #define DIFFERENCE 0.00005
 #define EQ(_x_,_y_) (((_x_-_y_<DIFFERENCE)&&(_y_-_x_<DIFFERENCE))?1:0)
 
+namespace std {
+  template class array<float, 2>;
+  template class array<double, 2>;
+  template class array<point2_t<float>, 2>;
+  template class array<point2_t<double>, 2>;
+}
+
 template <>
 inline bool operator==(point2_t<double> p1, point2_t<double> p2) {
   return ((p1[0] - p2[0]) < g_dy && (p2[0] - p1[0]) < g_dy ) &&
@@ -403,7 +410,15 @@ class CContour {
   }
 
   int reverse() {
+#if defined(_MSC_VER) && (_MSC_VER >= 1914)
+    point2_t<double> temp;
+    temp    = m_begin;
+    m_begin = m_end;
+    m_end   = temp;
+#else
+    // Error when compiling with MSVC 2017 15.7.4
     std::swap<point2_t<double> >(m_begin, m_end);
+#endif
 
     std::vector<point2_t<double> > tmp;
     auto it = m_contour.begin();
