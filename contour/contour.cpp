@@ -410,14 +410,14 @@ class CContour {
   }
 
   int reverse() {
-#if defined(_MSC_VER) && (_MSC_VER >= 1914)
+#if 0 // defined(_MSC_VER) && (_MSC_VER >= 1914)
     point2_t<double> temp;
     temp    = m_begin;
     m_begin = m_end;
     m_end   = temp;
 #else
-    // Error when compiling with MSVC 2017 15.7.4
-    std::swap<point2_t<double> >(m_begin, m_end);
+    // Error when compiling with MSVC 2017 15.7.4, if you specify, std::swap<point2_t<double>>
+    std::swap(m_begin, m_end);
 #endif
 
     std::vector<point2_t<double> > tmp;
