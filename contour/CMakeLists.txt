@@ -1,4 +1,5 @@
 include(GenerateExportHeader)
+
 set(conrec_SOURCES
   conrec.c
 )
@@ -8,7 +9,7 @@ add_definitions(-DUSE_CMAKE)
 add_library(conrec ${LIB_TYPE} ${conrec_SOURCES})
 
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "-fPIC -std=c++11 -std=c++14 -pedantic -Wall ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS "-std=c++14 -pedantic -Wall ${CMAKE_CXX_FLAGS}")
 endif()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
@@ -37,8 +38,6 @@ include(${SWIG_USE_FILE})
 
 find_package(PythonInterp 2.7 REQUIRED)
 find_package(PythonLibs 2.7 REQUIRED)
-
-# HAVE_ROUND
 
 if (MSVC)
   set(CMAKE_SWIG_FLAGS "-D_SWIG_WIN32")

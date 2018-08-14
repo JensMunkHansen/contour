@@ -5,7 +5,7 @@
  *
  * @brief
  *
- *
+ * Copyright 2018 Jens Munk Hansen
  */
 
 #pragma once
@@ -16,6 +16,29 @@
 # define CONTOUR_EXPORT
 #endif
 
+/**
+ * Sorted contours
+ *
+ * @param[in]  pData
+ * @param[in]  nYdata
+ * @param[in]  nXdata
+ * @param[in]  pY
+ * @param[in]  nY
+ * @param[in]  pX
+ * @param[in]  nX
+ * @param[in]  pLevels
+ * @param[in]  nLevels
+ * @param[out] ppOutX
+ * @param[out] nOutX
+ * @param[out] ppOutY
+ * @param[out] nOutY
+ * @param[out] nOutLengths
+ * @param[out] nOutSegments
+ * @param[out] nLevelSegments
+ * @param[out] nLevels2
+ *
+ * @return
+ */
 CONTOUR_EXPORT int contours_sorted(
   const double* pData,
   const size_t nYdata,
