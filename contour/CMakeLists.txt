@@ -61,6 +61,13 @@ else()
 endif()
 
 if (MSVC)
+  # Setting RUNTIME_OUTPUT_DIRECTORY using set_target_properties does not work
+  add_custom_command(TARGET _swig_contour POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:_swig_contour> "${CMAKE_CURRENT_BINARY_DIR}"
+    )
+endif()
+
+if (MSVC)
   # 4459: declaration of swig_this hides global declaration,
   #       e.g. static PyObject* swig_this = NULL;
   #       void SomeFunction(PyObject* swig_this);
