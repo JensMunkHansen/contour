@@ -130,6 +130,8 @@ int contours_internal(
   const double* pLevels, const size_t nLevels,
   double** ppOutY, double** ppOutX, size_t* nCoordinates,
   size_t** nOutLengths) {
+  
+  int retval = -1;
   // Clear old segments
   g_segments.clear();
   g_segments.resize(nLevels);
@@ -158,31 +160,36 @@ int contours_internal(
   // For output - can be omitted for sorted algorithm
   *nOutLengths = static_cast<size_t*>(malloc(nLevels*sizeof(size_t)));
 
-  *nCoordinates = 0;
-  size_t iPoint = 0;
-  size_t nSegments;
+  if (*nOutLengths) {
+    *nCoordinates = 0;
+    size_t iPoint = 0;
+    size_t nSegments;
 
-  for (size_t iLevel = 0 ; iLevel < nLevels ; iLevel++) {
-    nSegments = g_segments[iLevel].size();
-    (*nOutLengths)[iLevel] = nSegments;
-    (*nCoordinates) += 2 * nSegments;
-  }
+    for (size_t iLevel = 0; iLevel < nLevels; iLevel++) {
+      nSegments = g_segments[iLevel].size();
+      (*nOutLengths)[iLevel] = nSegments;
+      (*nCoordinates) += 2 * nSegments;
+    }
 
-  *ppOutX = static_cast<double*>(malloc((*nCoordinates)*sizeof(double)));
-  *ppOutY = static_cast<double*>(malloc((*nCoordinates)*sizeof(double)));
+    *ppOutX = static_cast<double*>(malloc((*nCoordinates) * sizeof(double)));
+    *ppOutY = static_cast<double*>(malloc((*nCoordinates) * sizeof(double)));
 
-  for (size_t iLevel = 0 ; iLevel < nLevels ; iLevel++) {
-    nSegments = g_segments[iLevel].size();
-    for (auto it : g_segments[iLevel]) {
-      (*ppOutX)[iPoint] = it[0][0];
-      (*ppOutY)[iPoint] = it[0][1];
-      iPoint++;
-      (*ppOutX)[iPoint] = it[1][0];
-      (*ppOutY)[iPoint] = it[1][1];
-      iPoint++;
+    if (*ppOutX && *ppOutY) {
+      for (size_t iLevel = 0; iLevel < nLevels; iLevel++) {
+        nSegments = g_segments[iLevel].size();
+        for (auto it : g_segments[iLevel]) {
+          (*ppOutX)[iPoint] = it[0][0];
+          (*ppOutY)[iPoint] = it[0][1];
+          iPoint++;
+          (*ppOutX)[iPoint] = it[1][0];
+          (*ppOutY)[iPoint] = it[1][1];
+          iPoint++;
+        }
+      }
+      retval = 0;
     }
   }
-  return 0;
+  return retval;
 }
 
 int contours(

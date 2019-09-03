@@ -26,6 +26,10 @@ if (UNIX AND NOT WIN32 AND NOT CYGWIN AND SPS_DEBUG)
   set(contour_SOURCES "${contour_SOURCES}" "../sps/strace.cpp")
 endif()
 
+if (MSVC)
+   set_source_files_properties( contour.cpp PROPERTIES COMPILE_FLAGS "/wd6011 /wd6386")
+endif()
+
 add_library(contour ${LIB_TYPE} ${contour_SOURCES})
 
 generate_export_header(contour)
@@ -71,7 +75,7 @@ if (MSVC)
   # 4459: declaration of swig_this hides global declaration,
   #       e.g. static PyObject* swig_this = NULL;
   #       void SomeFunction(PyObject* swig_this);
-  set_source_files_properties( ${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "/wd4459 /wd4701 /wd4127 /wd4456 /Od")
+  set_source_files_properties( ${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "/wd6011 /wd6244 /wd6246 /wd4459 /wd4701 /wd4127 /wd4456 /Od")
 endif()
 
 swig_link_libraries(swig_contour contour conrec ${PYTHON_LIBRARIES})
