@@ -1,6 +1,9 @@
 # Ignore symbolic links sps and cmake
 sps
 cmake
+contour/swig_contour.py
+
+*_wrap.cpp
 
 # Common directory names used for output
 /debug
