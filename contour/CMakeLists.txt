@@ -32,9 +32,12 @@ endif()
 
 add_library(contour ${LIB_TYPE} ${contour_SOURCES})
 
+target_include_directories(contour PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")
 generate_export_header(contour)
 
 target_link_libraries(contour conrec)
+
+
 
 find_package(SWIG REQUIRED)
 
