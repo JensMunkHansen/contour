@@ -1,6 +1,10 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.10)
 
-project(contour VERSION 1.0.0.0 LANGUAGES C CXX)
+project(contour
+  LANGUAGES C CXX
+  VERSION 1.0.0.0)
+
+#set(CMAKE_CXX_STANDARD 14)
 
 # JEM: Allow the developer to select if Dynamic or Static libraries are built
 option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
@@ -16,10 +20,10 @@ if (CONTOUR_BUILD_SHARED_LIBS)
 endif()
 
 # set up include-directories
-include_directories(
-  "${PROJECT_BINARY_DIR}"   # to find contour/config.h
-  "${PROJECT_SOURCE_DIR}"   # to find contour/contour.hpp
-  )
+#include_directories(
+#  "${PROJECT_BINARY_DIR}"   # to find contour/config.h
+#  "${PROJECT_SOURCE_DIR}"   # to find contour/contour.hpp
+#  )
 
 # Add sub-directories
 add_subdirectory(contour)

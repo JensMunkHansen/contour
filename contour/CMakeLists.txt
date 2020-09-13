@@ -1,45 +1,38 @@
 include(GenerateExportHeader)
 
-set(conrec_SOURCES
+add_definitions(-DUSE_CMAKE)
+
+add_library(conrec ${LIB_TYPE}
   conrec.c
 )
 
-add_definitions(-DUSE_CMAKE)
-
-add_library(conrec ${LIB_TYPE} ${conrec_SOURCES})
-
 if (UNIX)
-  set(CMAKE_CXX_FLAGS "-std=c++14 -pedantic -Wall ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_CXX_FLAGS "-pedantic -Wall ${CMAKE_CXX_FLAGS}")
 endif()
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
-
-set(contour_SOURCES
-  contour.cpp
-)
-
-set(contour_HEADERS
-)
-
-if (UNIX AND NOT WIN32 AND NOT CYGWIN AND SPS_DEBUG)
-  set(contour_HEADERS "${contour_HEADERS}" "../sps/strace.hpp")
-  set(contour_SOURCES "${contour_SOURCES}" "../sps/strace.cpp")
-endif()
 
 if (MSVC)
    set_source_files_properties( contour.cpp PROPERTIES COMPILE_FLAGS "/wd6011 /wd6386")
 endif()
 
-add_library(contour ${LIB_TYPE} ${contour_SOURCES})
+add_library(contour ${LIB_TYPE} contour.cpp)
 
-target_include_directories(contour PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/..")
+#target_sources(contour PRIVATE $<$<BOOL:NOT ${WIN32}>:"${CMAKE_CURRENT_SOURCE_DIR}/../../sps/strace.cpp">)
+
+
+target_include_directories(contour
+  PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/.."
+  PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
 generate_export_header(contour)
 
-target_link_libraries(contour conrec)
+target_link_libraries(contour PRIVATE conrec) # Check private is okay
 
-
+target_compile_features(contour PRIVATE cxx_std_14)
 
 find_package(SWIG REQUIRED)
+
+add_library(libs::contour ALIAS contour)
 
 include(${SWIG_USE_FILE})
 
