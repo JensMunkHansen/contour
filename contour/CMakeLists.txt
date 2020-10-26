@@ -1,5 +1,6 @@
 include(GenerateExportHeader)
 
+# Definition used to allow compilation using python build utilities
 add_definitions(-DUSE_CMAKE)
 
 add_library(conrec ${LIB_TYPE}
@@ -13,20 +14,18 @@ endif()
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
 
 if (MSVC)
-   set_source_files_properties( contour.cpp PROPERTIES COMPILE_FLAGS "/wd6011 /wd6386")
+   set_source_files_properties(contour.cpp PROPERTIES COMPILE_FLAGS "/wd6011 /wd6386")
 endif()
 
 add_library(contour ${LIB_TYPE} contour.cpp)
 
-#target_sources(contour PRIVATE $<$<BOOL:NOT ${WIN32}>:"${CMAKE_CURRENT_SOURCE_DIR}/../../sps/strace.cpp">)
-
-
 target_include_directories(contour
   PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/.."
   PUBLIC "${CMAKE_CURRENT_BINARY_DIR}/..")
+
 generate_export_header(contour)
 
-target_link_libraries(contour PRIVATE conrec) # Check private is okay
+target_link_libraries(contour PRIVATE conrec)
 
 target_compile_features(contour PRIVATE cxx_std_14)
 
@@ -53,18 +52,15 @@ set(swig_contour_HEADERS
 )
 
 set_source_files_properties(swig_contour.i PROPERTIES CPLUSPLUS ON)
-
-if(${CMAKE_VERSION} VERSION_LESS "3.8.0")
-  swig_add_module(swig_contour python swig_contour.i ${swig_contour_HEADERS})
-else()
-  swig_add_library(swig_contour LANGUAGE python SOURCES swig_contour.i ${swig_contour_HEADERS})
-endif()
+set_property(SOURCE swig_contour.i PROPERTY SWIG_MODULE_NAME swig_contour) # Explicitly set name -module is passed to SWIG
+set_property(SOURCE swig_contour.i PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/..")
+swig_add_library(swig_contour LANGUAGE python SOURCES swig_contour.i ${swig_contour_HEADERS})
 
 if (MSVC)
   # Setting RUNTIME_OUTPUT_DIRECTORY using set_target_properties does not work
   add_custom_command(TARGET _swig_contour POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:_swig_contour> "${CMAKE_CURRENT_BINARY_DIR}"
-    )
+  )
 endif()
 
 if (MSVC)
@@ -74,4 +70,5 @@ if (MSVC)
   set_source_files_properties( ${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "/wd6011 /wd6244 /wd6246 /wd4459 /wd4701 /wd4127 /wd4456 /Od")
 endif()
 
-swig_link_libraries(swig_contour contour conrec ${PYTHON_LIBRARIES})
+#swig_link_libraries(swig_contour contour conrec ${PYTHON_LIBRARIES})
+target_link_libraries(${SWIG_MODULE_swig_contour_REAL_NAME} contour conrec ${PYTHON_LIBRARIES})

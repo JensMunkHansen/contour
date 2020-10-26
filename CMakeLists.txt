@@ -4,10 +4,15 @@ project(contour
   LANGUAGES C CXX
   VERSION 1.0.0.0)
 
-#set(CMAKE_CXX_STANDARD 14)
+set(project_policies CMP0078 CMP0086)
+foreach(policy ${project_policies})
+  if(POLICY ${policy})
+    cmake_policy(SET ${policy} NEW)
+  endif()
+endforeach()
 
 # JEM: Allow the developer to select if Dynamic or Static libraries are built
-option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
+option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" ON)
 set(LIB_TYPE STATIC)
 if (CONTOUR_BUILD_SHARED_LIBS)
   set(LIB_TYPE SHARED)
@@ -18,12 +23,6 @@ if (CONTOUR_BUILD_SHARED_LIBS)
     set(CMAKE_POSITION_INDEPENDENT_CODE ON)
   endif()
 endif()
-
-# set up include-directories
-#include_directories(
-#  "${PROJECT_BINARY_DIR}"   # to find contour/config.h
-#  "${PROJECT_SOURCE_DIR}"   # to find contour/contour.hpp
-#  )
 
 # Add sub-directories
 add_subdirectory(contour)
