@@ -14,7 +14,7 @@ endif()
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/config.h" @ONLY)
 
 if (MSVC)
-   set_source_files_properties(contour.cpp PROPERTIES COMPILE_FLAGS "/wd6011 /wd6386")
+  set_source_files_properties(contour.cpp PROPERTIES COMPILE_FLAGS "/wd6011 /wd6386")
 endif()
 
 add_library(contour ${LIB_TYPE} contour.cpp)
