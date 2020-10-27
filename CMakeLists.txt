@@ -11,8 +11,12 @@ foreach(policy ${project_policies})
   endif()
 endforeach()
 
+if (NOT DEFINED ENABLE_PYTHON3)
+  set(ENABLE_PYTHON3 ON)
+endif()
+
 # JEM: Allow the developer to select if Dynamic or Static libraries are built
-option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
+option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" ON)
 set(LIB_TYPE STATIC)
 if (CONTOUR_BUILD_SHARED_LIBS)
   set(LIB_TYPE SHARED)

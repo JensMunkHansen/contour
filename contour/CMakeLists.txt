@@ -35,8 +35,14 @@ add_library(libs::contour ALIAS contour)
 
 include(${SWIG_USE_FILE})
 
-find_package(PythonInterp 2.7 REQUIRED)
-find_package(PythonLibs 2.7 REQUIRED)
+if (ENABLE_PYTHON3)
+  set(Python_ADDITIONAL_VERSIONS 3.5 3.7 3.8)
+  find_package(PythonInterp 3 REQUIRED)
+  find_package(PythonLibs)
+else()
+  find_package(PythonInterp 2.7 REQUIRED)
+  find_package(PythonLibs 2.7 REQUIRED)
+endif()
 
 if (MSVC)
   set(CMAKE_SWIG_FLAGS "-D_SWIG_WIN32")
