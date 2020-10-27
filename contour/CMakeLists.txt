@@ -45,7 +45,7 @@ if (MSVC)
   string(REPLACE "_d" "" PYTHON_LIBRARIES "${PYTHON_LIBRARIES}")
 endif()
 
-include_directories(${PYTHON_INCLUDE_PATH})
+include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(swig_contour_HEADERS
   contour.hpp
