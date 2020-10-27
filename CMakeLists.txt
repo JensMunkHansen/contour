@@ -12,7 +12,7 @@ foreach(policy ${project_policies})
 endforeach()
 
 # JEM: Allow the developer to select if Dynamic or Static libraries are built
-option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" ON)
+option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
 set(LIB_TYPE STATIC)
 if (CONTOUR_BUILD_SHARED_LIBS)
   set(LIB_TYPE SHARED)

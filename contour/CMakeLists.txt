@@ -56,10 +56,11 @@ set_property(SOURCE swig_contour.i PROPERTY SWIG_MODULE_NAME swig_contour) # Exp
 set_property(SOURCE swig_contour.i PROPERTY INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/..")
 swig_add_library(swig_contour LANGUAGE python SOURCES swig_contour.i ${swig_contour_HEADERS})
 
+message(${SWIG_MODULE_swig_contour_REAL_NAME})
 if (MSVC)
   # Setting RUNTIME_OUTPUT_DIRECTORY using set_target_properties does not work
-  add_custom_command(TARGET _swig_contour POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:_swig_contour> "${CMAKE_CURRENT_BINARY_DIR}"
+  add_custom_command(TARGET ${SWIG_MODULE_swig_contour_REAL_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${SWIG_MODULE_swig_contour_REAL_NAME}> "${CMAKE_CURRENT_BINARY_DIR}"
   )
 endif()
 
