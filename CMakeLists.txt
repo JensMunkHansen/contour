@@ -16,16 +16,14 @@ if (NOT DEFINED ENABLE_PYTHON3)
 endif()
 
 # JEM: Allow the developer to select if Dynamic or Static libraries are built
-option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" ON)
+option (CONTOUR_BUILD_SHARED_LIBS "Build Shared Libraries" OFF)
 set(LIB_TYPE STATIC)
 if (CONTOUR_BUILD_SHARED_LIBS)
   set(LIB_TYPE SHARED)
 endif()
 
-if (CONTOUR_BUILD_SHARED_LIBS)
-  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
-  endif()
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+  set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 
 # Add sub-directories
