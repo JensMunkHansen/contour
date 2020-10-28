@@ -29,7 +29,18 @@ target_link_libraries(contour PRIVATE conrec)
 
 target_compile_features(contour PRIVATE cxx_std_14)
 
-find_package(SWIG REQUIRED)
+if (NOT DEFINED SWIG_DIR)
+  # Not happy with recursion
+  if (UNIX AND NOT CYGWIN)
+    set(SWIG_EXECUTABLE swig3.0) # Not compatible with swig4.0 yet
+    set(SWIG_DIR /usr/share/swig)
+  endif()
+  find_package(SWIG 3.0.12 EXACT REQUIRED)
+endif()
+
+#message(${SWIG_DIR})
+#message(${SWIG_VERSION})
+#message(${SWIG_EXECUTABLE})
 
 add_library(libs::contour ALIAS contour)
 
