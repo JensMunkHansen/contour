@@ -35,14 +35,14 @@ add_library(libs::contour ALIAS contour)
 
 include(${SWIG_USE_FILE})
 
-if (ENABLE_PYTHON3)
-  set(Python_ADDITIONAL_VERSIONS 3.5 3.7 3.8)
-  find_package(PythonInterp 3 REQUIRED)
-  find_package(PythonLibs)
+if (WIN32)
+  find_package(Python3 COMPONENTS Interpreter Development NumPy)
 else()
-  find_package(PythonInterp 2.7 REQUIRED)
-  find_package(PythonLibs 2.7 REQUIRED)
+  # On linux, we require a specific version of Python
+  find_package(Python3 3.9 COMPONENTS Interpreter Development NumPy)
 endif()
+include_directories(${Python3_INCLUDE_DIRS})
+include_directories(${Python3_NumPy_INCLUDE_DIRS})
 
 if (MSVC)
   set(CMAKE_SWIG_FLAGS "-D_SWIG_WIN32")
