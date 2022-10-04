@@ -75,4 +75,4 @@ if (MSVC)
 endif()
 
 #swig_link_libraries(swig_contour contour conrec ${PYTHON_LIBRARIES})
-target_link_libraries(${SWIG_MODULE_swig_contour_REAL_NAME} contour conrec ${PYTHON_LIBRARIES})
+target_link_libraries(${SWIG_MODULE_swig_contour_REAL_NAME} contour conrec ${Python3_LIBRARIES})
