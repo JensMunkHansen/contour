@@ -133,9 +133,8 @@ yp = []
 # Create list of x- and y-coordinates
 for level, polys in polygons.items():
   for p in polys:
-    p = map(list,zip(*p))
-    xp.append(np.array(p[0]))
-    yp.append(np.array(p[1]))
+    xp.append(np.array(p)[:,0])
+    yp.append(np.array(p)[:,1])
 
 elapsed = timer() - start
 print(elapsed)
