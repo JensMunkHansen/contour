@@ -2,6 +2,7 @@
 sps
 cmake
 contour/swig_contour.py
+/swig_contour.py
 
 *_wrap.cpp
 
