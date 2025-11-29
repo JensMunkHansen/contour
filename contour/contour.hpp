@@ -11,9 +11,9 @@
 #pragma once
 
 #ifdef USE_CMAKE
-# include <contour/contour_export.h>
+#include <contour/contour_export.h>
 #else
-# define CONTOUR_EXPORT
+#define CONTOUR_EXPORT
 #endif
 
 /**
@@ -39,24 +39,10 @@
  *
  * @return
  */
-CONTOUR_EXPORT int contours_sorted(
-  const double* pData,
-  const size_t nYdata,
-  const size_t nXdata,
-  const double* pY,
-  const size_t nY,
-  const double* pX,
-  const size_t nX,
-  const double* pLevels,
-  const size_t nLevels,
-  double** ppOutX,
-  size_t* nOutX,
-  double** ppOutY,
-  size_t* nOutY,
-  size_t** nOutLengths,
-  size_t* nOutSegments,
-  size_t** nLevelSegments,
-  size_t* nLevels2);
+CONTOUR_EXPORT int contours_sorted(const double* pData, const size_t nYdata, const size_t nXdata,
+  const double* pY, const size_t nY, const double* pX, const size_t nX, const double* pLevels,
+  const size_t nLevels, double** ppOutX, size_t* nOutX, double** ppOutY, size_t* nOutY,
+  size_t** nOutLengths, size_t* nOutSegments, size_t** nLevelSegments, size_t* nLevels2);
 
 /**
  * Compute contours for a 2D double-precision floating point image
@@ -87,19 +73,7 @@ CONTOUR_EXPORT int contours_sorted(
  *
  * @return
  */
-CONTOUR_EXPORT int contours(
-  const double* pData,
-  const size_t nYdata,
-  const size_t nXdata,
-  const double* pY,
-  const size_t nY,
-  const double* pX,
-  const size_t nX,
-  const double* pLevels,
-  const size_t nLevels,
-  double** ppOutY,
-  size_t* nOutY,
-  double** ppOutX,
-  size_t* nOutX,
-  size_t** nOutLengths,
-  size_t* nOutSegments);
+CONTOUR_EXPORT int contours(const double* pData, const size_t nYdata, const size_t nXdata,
+  const double* pY, const size_t nY, const double* pX, const size_t nX, const double* pLevels,
+  const size_t nLevels, double** ppOutY, size_t* nOutY, double** ppOutX, size_t* nOutX,
+  size_t** nOutLengths, size_t* nOutSegments);

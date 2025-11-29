@@ -9,12 +9,12 @@
  */
 #pragma once
 #ifdef __cplusplus
-extern "C" {
+extern "C"
+{
 #endif
 
-void Contour(double **d,int ilb,int iub,int jlb,int jub,
-             double *x,double *y,int nc,double *z,
-             void (*ConrecLine)(double,double,double,double,int));
+  void Contour(double** d, int ilb, int iub, int jlb, int jub, double* x, double* y, int nc,
+    double* z, void (*ConrecLine)(double, double, double, double, int));
 
 #ifdef __cplusplus
 }
