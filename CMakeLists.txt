@@ -7,9 +7,24 @@ project(contour
 # Options
 option(CONTOUR_BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(CONTOUR_BUILD_PYTHON "Build Python bindings" ON)
+option(CONTOUR_BUILD_DOTNET "Build .NET bindings" OFF)
 
 # PIC needed for Python module (shared library)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
 # Add sub-directories
 add_subdirectory(contour)
+
+# .NET bindings (requires shared library)
+if(CONTOUR_BUILD_DOTNET)
+  if(NOT CONTOUR_BUILD_SHARED_LIBS)
+    message(FATAL_ERROR "CONTOUR_BUILD_DOTNET requires CONTOUR_BUILD_SHARED_LIBS=ON")
+  endif()
+  include(cmake/dotnet.cmake)
+
+  add_dotnet_library(
+    NAME Contour
+    NATIVE_TARGET contour
+    SOURCES Contour.cs
+  )
+endif()

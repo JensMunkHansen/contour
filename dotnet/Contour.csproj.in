@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RuntimeIdentifier>@DOTNET_RID@</RuntimeIdentifier>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PackageId>@DOTNET_PACKAGE_ID@</PackageId>
+    <Version>@PROJECT_VERSION@</Version>
+    <Authors>Jens Munk Hansen</Authors>
+    <Description>Contour line computation using CONREC algorithm</Description>
+    <PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="$<TARGET_FILE:@DOTNET_NATIVE_TARGET@>">
+      <PackagePath>runtimes/@DOTNET_RID@/native/%(Filename)%(Extension)</PackagePath>
+      <Pack>true</Pack>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

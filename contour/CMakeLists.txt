@@ -31,6 +31,8 @@ configure_file(
 add_library(contour ${CONTOUR_LIB_TYPE}
   contour.cpp
   contour.hpp
+  contour_capi.cpp
+  contour_capi.h
 )
 
 target_compile_definitions(contour PRIVATE USE_CMAKE)
