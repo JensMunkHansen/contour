@@ -14,7 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="$<TARGET_FILE:@DOTNET_NATIVE_TARGET@>">
+    <!-- Native libraries (main target and all dependencies from staging directory) -->
+    <Content Include="@DOTNET_NATIVE_STAGING@/*">
       <PackagePath>runtimes/@DOTNET_RID@/native/%(Filename)%(Extension)</PackagePath>
       <Pack>true</Pack>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

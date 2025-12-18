@@ -81,8 +81,17 @@
 	    "cacheVariables": {
 		"C_COMPILER_ID": "Clang"
 	    }
-	}        
-	
+	},
+        {
+            "name": "linux-gcc-dotnet",
+            "displayName": "Linux GCC with .NET",
+            "inherits": "linux-gcc",
+            "cacheVariables": {
+                "CONTOUR_BUILD_SHARED_LIBS": "ON",
+                "CONTOUR_BUILD_DOTNET": "ON",
+                "CONTOUR_BUILD_PYTHON": "OFF"
+            }
+        }
     ],
     "buildPresets": [
         {
@@ -144,6 +153,13 @@
             "name": "Release-clang",
             "configurePreset": "windows-clangcl",
             "configuration": "Release"
+        },
+        {
+            "name": "dotnet",
+            "displayName": "Build C++ and .NET",
+            "configurePreset": "linux-gcc-dotnet",
+            "configuration": "Release",
+            "targets": ["ContourTest_build"]
         }
     ],
     "testPresets": [
@@ -176,6 +192,14 @@
             "description": "ASan tests with MSVC",
             "configurePreset": "windows-msvc-asan",
             "configuration": "Asan",
+            "output": {
+                "outputOnFailure": true
+            }
+        },
+        {
+            "name": "dotnet-test",
+            "description": ".NET test",
+            "configurePreset": "linux-gcc-dotnet",
             "output": {
                 "outputOnFailure": true
             }

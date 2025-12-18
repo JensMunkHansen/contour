@@ -12,6 +12,8 @@ option(CONTOUR_BUILD_DOTNET "Build .NET bindings" OFF)
 # PIC needed for Python module (shared library)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+enable_testing()
+
 # Add sub-directories
 add_subdirectory(contour)
 
@@ -24,7 +26,15 @@ if(CONTOUR_BUILD_DOTNET)
 
   add_dotnet_library(
     NAME Contour
-    NATIVE_TARGET contour
+    NATIVE_TARGETS contour
     SOURCES Contour.cs
+  )
+
+  add_dotnet_test(
+    NAME ContourTest
+    SOURCE ${PROJECT_SOURCE_DIR}/dotnettest/ContourTest.cs
+    PACKAGE_DIR ${PROJECT_BINARY_DIR}/dotnet/Contour
+    PACKAGE_NAME Contour
+    DEPENDS Contour_dotnet_pack
   )
 endif()
