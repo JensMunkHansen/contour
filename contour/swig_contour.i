@@ -5,6 +5,15 @@
   #include <contour/contour.hpp>
 %}
 
+// SWIG 4.1+ compatibility - SWIG_Python_AppendOutput now requires 3 args
+%insert("header") %{
+#if SWIG_VERSION >= 0x040100
+  #define SWIG_AppendOutput(result, obj) SWIG_Python_AppendOutput(result, obj, 0)
+#else
+  #define SWIG_AppendOutput(result, obj) SWIG_Python_AppendOutput(result, obj)
+#endif
+%}
+
 %include "windows.i"
 
 #ifdef SWIGPYTHON
